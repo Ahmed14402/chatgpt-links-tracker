@@ -15,11 +15,11 @@ jobs:
       - name: Créer des logs d'exemple (simulation)
         run: |
           mkdir logs
-          # ⚠️ Ici normalement on utiliserait les vrais logs GitHub Pages.
-          # Pour tester, on simule des clics dans un fichier logs.
-          echo "GET /tracker.gif?person=alice" >> logs/access.log
-          echo "GET /tracker.gif?person=alice" >> logs/access.log
-          echo "GET /tracker.gif?person=bob" >> logs/access.log
+          # Exemple : on simule 3 clics sur "tour_eiffel"
+          echo "GET /tracker.gif?person=tour_eiffel" >> logs/access.log
+          echo "GET /tracker.gif?person=tour_eiffel" >> logs/access.log
+          echo "GET /tracker.gif?person=tour_eiffel" >> logs/access.log
+
 
       - name: Mettre à jour clicks.json
         run: |
