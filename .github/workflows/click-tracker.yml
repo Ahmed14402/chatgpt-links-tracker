@@ -12,6 +12,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      - name: Installer jq
+        run: sudo apt-get update && sudo apt-get install -y jq
+
       - name: Créer des logs d'exemple (simulation)
         run: |
           mkdir logs
@@ -19,7 +22,6 @@ jobs:
           echo "GET /tracker.gif?person=tour_eiffel" >> logs/access.log
           echo "GET /tracker.gif?person=tour_eiffel" >> logs/access.log
           echo "GET /tracker.gif?person=tour_eiffel" >> logs/access.log
-
 
       - name: Mettre à jour clicks.json
         run: |
@@ -44,5 +46,5 @@ jobs:
           git config user.name "github-actions"
           git config user.email "actions@github.com"
           git add clicks.json
-          git commit -m "Update clicks.json"
+          git commit -m "Update clicks.json" || echo "Pas de changements à commit"
           git push
