@@ -1,5 +1,8 @@
 name: Count Clicks
 
+permissions:
+  contents: write
+
 on:
   schedule:
     - cron: "*/15 * * * *" # Vérifie toutes les 15 minutes
@@ -25,11 +28,9 @@ jobs:
 
       - name: Mettre à jour clicks.json
         run: |
-          # Charger clicks.json actuel
           tmpfile=$(mktemp)
           cp clicks.json $tmpfile
 
-          # Parcourir les logs simulés
           while read -r line; do
             if [[ "$line" == *"tracker.gif?person="* ]]; then
               person=$(echo $line | sed -n 's/.*person=\(.*\)/\1/p')
@@ -47,4 +48,5 @@ jobs:
           git config user.email "actions@github.com"
           git add clicks.json
           git commit -m "Update clicks.json" || echo "Pas de changements à commit"
-          git push
+          git pull --rebase origin main || true
+          git push || echo "Rien à pousser"
